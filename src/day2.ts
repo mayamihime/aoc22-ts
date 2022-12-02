@@ -34,6 +34,30 @@ function getScoreFrom(rounds: RPS[][]): number {
     return score
 }
 
+function correctRoundChoice(round: RPS[]): RPS[] {
+    const [opponent, player] = round
+    
+    if (player == RPS.Rock) { // lose
+        if (opponent == RPS.Rock) round[1] = RPS.Scissors;
+        else if (opponent == RPS.Paper) round[1] = RPS.Rock;
+        else if (opponent == RPS.Scissors) round[1] = RPS.Paper;
+    }
+
+    else if (player == RPS.Paper) { // draw
+        if (opponent == RPS.Rock) round[1] = RPS.Rock;
+        else if (opponent == RPS.Paper) round[1] = RPS.Paper;
+        else if (opponent == RPS.Scissors) round[1] = RPS.Scissors;
+    }
+
+    else if (player == RPS.Scissors) { // win!
+        if (opponent == RPS.Rock) round[1] = RPS.Paper;
+        else if (opponent == RPS.Paper) round[1] = RPS.Scissors;
+        else if (opponent == RPS.Scissors) round[1] = RPS.Rock;
+    }
+
+    return round
+}
+
 // rounds are [opponent, player]
 (async () => {
     const filepath = path.join(__dirname, "..", "static", "day2_input.txt")
@@ -45,4 +69,8 @@ function getScoreFrom(rounds: RPS[][]): number {
         .map(row => row.map(item => parseToRPS(item)))
    
     console.log(`the score of part 1 is ${getScoreFrom(rounds)}`)
+
+    const correctedRounds = rounds.map(correctRoundChoice)
+
+    console.log(`the score of part 2 is ${getScoreFrom(correctedRounds)}`)
 })()

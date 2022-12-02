@@ -66,7 +66,7 @@ function correctRoundChoice(round: RPS[]): RPS[] {
     const rounds = contents.split("\n")
         .map(line => line.split(" "))
         .filter(row => row.length > 1)
-        .map(row => row.map(item => parseToRPS(item)))
+        .map(row => row.map(parseToRPS))
    
     console.log(`the score of part 1 is ${getScoreFrom(rounds)}`)
 

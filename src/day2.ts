@@ -1,5 +1,4 @@
-import path from 'path'
-import { promises as fs } from 'fs'
+import { readStatic } from "./utils";
 
 enum RPS {
     Rock = "Rock",
@@ -60,8 +59,7 @@ function correctRoundChoice(round: RPS[]): RPS[] {
 
 // rounds are [opponent, player]
 (async () => {
-    const filepath = path.join(__dirname, "..", "static", "day2_input.txt")
-    const contents = await fs.readFile(filepath, { encoding: "utf8" })
+    const contents = await readStatic("day2_input.prod")
 
     const rounds = contents.split("\n")
         .map(line => line.split(" "))

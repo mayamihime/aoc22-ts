@@ -1,5 +1,4 @@
-import path from 'path'
-import { promises as fs } from 'fs'
+import { readStatic } from "./utils"
 
 class Elf {
     public calories: number[]
@@ -13,10 +12,9 @@ class Elf {
     }
 }
 
-export const run = async () => {
-    let filepath = path.join(__dirname, "..", "static", "elf_calories.txt")	
+(async () => {
+    let content = await readStatic("day1_input.prod")
 
-    let content = await fs.readFile(filepath, { encoding: 'utf8' })
     const elves: Elf[] = [new Elf()]
 
     for (const line of content.split("\n")) {
@@ -39,4 +37,4 @@ export const run = async () => {
         top3total += elf.total
     }
     console.log(`the top three elves are carrying a total of ${top3total}cal.`)
-}
+})()

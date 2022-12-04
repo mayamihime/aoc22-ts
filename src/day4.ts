@@ -1,11 +1,10 @@
-import path from "path"
-import { promises as fs } from "fs"
+import { readStatic } from "./utils"
 
 class Pair {
     public static from(s: string): Pair {
         const [left, right] = s.split(",")
             .map(side => side.split("-")
-                 .map(x => Number(x))
+                 .map(Number)
                 )
         return new Pair(left, right)
     }
@@ -32,8 +31,7 @@ class Pair {
 }
 
 (async () => {
-    const filepath = path.join(__dirname, "..", "static", "day4_input.prod")
-    const contents = await fs.readFile(filepath, { encoding: "utf8" })
+    const contents = await readStatic("day4_input.prod") 
     const lines = contents.split("\n")
 
     const pairs = lines.map(line => Pair.from(line))

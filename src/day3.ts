@@ -1,5 +1,4 @@
-import path from 'path'
-import { promises as fs } from 'fs'
+import { readStatic } from "./utils"
 
 function getPriorityOf(item: string): number {
     return "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ".indexOf(item) + 1
@@ -46,8 +45,7 @@ class Group {
 }
 
 (async () => {
-    const filepath = path.join(__dirname, "..", "static", "day3_input.txt")
-    const contents = await fs.readFile(filepath, { encoding: "utf8" })
+    const contents = await readStatic("day3_input.prod")
 
     const rucksacks: Rucksack[] = []
 
